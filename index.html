@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: rgb(233, 159, 255);
+        }
+        #container {
+            margin-top: 3%;
+
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5%;
+            border: none;
+            color: rgb(255, 255, 255);
+            background-color: black;
+        }
+
+        h1{
+            margin-top: 15%;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        p{
+            font-family:Georgia, 'Times New Roman', Times, serif;
+             font-size: 30px ;
+        }
+
+        input{
+            font-size: 35px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adivinhe!</h1>
+    <div id="container">
+        <p>Tente acertar o número secreto entre 1 e 100:</p>
+        <br>
+        <input type="number" id="palpite" min="1" max="100">
+        <br><br>
+        <button onclick="verificarPalpite()">Enviar Resposta</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        var numeroSecreto = Math.floor(Math.random() * 100) + 1;
+        var tentativasRestantes = 10;
+
+        function verificarPalpite() {
+            var palpite = parseInt(document.getElementById("palpite").value);
+
+            if (palpite === numeroSecreto) {
+                document.getElementById("resultado").innerHTML = "Parabéns! Você acertou o número secreto!";
+                document.getElementById("resultado").style.color = "green";
+            } else if (palpite < numeroSecreto) {
+                document.getElementById("resultado").innerHTML = "O número é maior que seu palpite. Tente novamente!";
+                document.getElementById("resultado").style.color = "red";
+                tentativasRestantes--;
+            } else {
+                document.getElementById("resultado").innerHTML = "O número é menor que seu palpite. Tente novamente!";
+                document.getElementById("resultado").style.color = "red";
+                tentativasRestantes--;
+            }
+
+            if (tentativasRestantes === 0) {
+                document.getElementById("resultado").innerHTML = "Fim do jogo! O número correto era " + numeroSecreto + ".";
+                document.getElementById("resultado").style.color = "blue";
+                document.getElementById("palpite").disabled = true;
+                document.getElementsByTagName("button")[0].disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
